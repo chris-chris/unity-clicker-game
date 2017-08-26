@@ -32,6 +32,10 @@ public class DataController : MonoBehaviour {
 
 	public int GoldPerSec = 1;
 
+	public int CollectGoldLevel = 1;
+
+
+
 
 	// Use this for initialization
 	void Start () {
