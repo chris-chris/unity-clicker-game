@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class DataController : MonoBehaviour {
 
@@ -28,22 +29,72 @@ public class DataController : MonoBehaviour {
 	}
 	// Singleton class end
 
-	public int Gold = 0;
+	public string gameDataProjectFilePath = "/game.json";
 
-	public int GoldPerSec = 1;
+	public StatData statData;
 
-	public int CollectGoldLevel = 1;
+	GameData _gameData;
+	public GameData gameData{
+		get{
+			if (_gameData == null) {
+				LoadGameData ();
+			}
+			return _gameData;
+		}
+	}
 
+	public StatData GetStatList(){
+		if (statData == null) {
+			LoadStatData ();
+		}
+		return statData;
+	}
 
+	public void LoadStatData(){
+		TextAsset statJson = Resources.Load ("MetaData/Stat") as TextAsset;
+		Debug.Log (statJson.text);
+		statData = JsonUtility.FromJson<StatData> (statJson.text);
 
-
-	// Use this for initialization
-	void Start () {
+		foreach (Stat stat in statData.StatList) {
+			Debug.Log (stat.Name);
+		}
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
+	public void LoadGameData()
+	{
+		string filePath = Application.persistentDataPath + gameDataProjectFilePath;
+
+		if (File.Exists (filePath)) {
+			Debug.Log ("loaded!");
+			string dataAsJson = File.ReadAllText (filePath);
+			_gameData = JsonUtility.FromJson<GameData> (dataAsJson);
+		} else 
+		{
+			Debug.Log ("Create new");
+
+			_gameData = new GameData ();
+			_gameData.CollectGoldLevel = 1;
+			_gameData.GoldPerSec = 1;
+			_gameData.Gold = 0;
+			_gameData.Health = 100;
+			_gameData.Damage = 20;
+			_gameData.Level = 1;
+			_gameData.Exp = 0;
+
+		}
 	}
+
+	public void SaveGameData()
+	{
+
+		string dataAsJson = JsonUtility.ToJson (gameData);
+
+		string filePath = Application.persistentDataPath + gameDataProjectFilePath;
+		File.WriteAllText (filePath, dataAsJson);
+
+	}
+
+
 }

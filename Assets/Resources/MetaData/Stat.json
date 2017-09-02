@@ -1,0 +1,44 @@
+{
+	"StatList":
+	[
+		{
+
+			"Type":"CollectGold",
+			"Name":"골드수집 속도 향상",
+
+			"Cost":1,
+			"CostUpgradeAmount":2,
+			"CostUpgradeAmountOp":"*",
+
+			"UpgradeAmount":2,
+			"UpgradeAmountOp":"*"
+
+		},
+		{
+
+			"Type":"StatDamage",
+			"Name":"공격력 향상",
+
+			"Cost":10,
+			"CostUpgradeAmount":2,
+			"CostUpgradeAmountOp":"*",
+
+			"UpgradeAmount":2,
+			"UpgradeAmountOp":"+"
+
+		},
+		{
+
+			"Type":"StatHealth",
+			"Name":"체력 향상",
+
+			"Cost":100,
+			"CostUpgradeAmount":3,
+			"CostUpgradeAmountOp":"*",
+
+			"UpgradeAmount":3,
+			"UpgradeAmountOp":"*"
+
+		}
+	]
+}
