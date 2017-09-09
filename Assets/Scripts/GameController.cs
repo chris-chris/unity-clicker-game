@@ -20,6 +20,27 @@ public class GameController : MonoBehaviour {
 		TextGold.text = DataController.Instance.gameData.Gold.ToString();
 		StartCoroutine (StartCollectGold ());
 		InitTap ();
+
+		var allBannerAdUnits = new string[] { "400b62ed4aba45fb9ba5161d9ca7a19f" };
+		var allInterstitialAdUnits = new string[] { "0d771f85d6c84f2ab94d7163fdb5b58b" };
+		var allRewardedVideoAdUnits = new string[] { "cba24206db20482db27b815b1deec598" };
+
+		#if UNITY_ANDROID
+		MoPub.loadBannerPluginsForAdUnits(allBannerAdUnits);
+		MoPub.loadInterstitialPluginsForAdUnits(allInterstitialAdUnits);
+		MoPub.loadRewardedVideoPluginsForAdUnits(allRewardedVideoAdUnits);
+		#elif UNITY_IPHONE
+		MoPub.loadPluginsForAdUnits(allBannerAdUnits);
+		MoPub.loadPluginsForAdUnits(allInterstitialAdUnits);
+		MoPub.loadPluginsForAdUnits(allRewardedVideoAdUnits);
+		#endif  
+
+		MoPub.createBanner ("400b62ed4aba45fb9ba5161d9ca7a19f", MoPubAdPosition.BottomCenter);
+		MoPub.requestInterstitialAd ("0d771f85d6c84f2ab94d7163fdb5b58b");  
+
+		MoPub.showInterstitialAd ("0d771f85d6c84f2ab94d7163fdb5b58b");  
+
+
 	}
 
 	IEnumerator StartCollectGold() {
