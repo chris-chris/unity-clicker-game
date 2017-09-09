@@ -31,8 +31,6 @@ public class DataController : MonoBehaviour {
 
 	public string gameDataProjectFilePath = "/game.json";
 
-	public StatData statData;
-
 	GameData _gameData;
 	public GameData gameData{
 		get{
@@ -43,20 +41,23 @@ public class DataController : MonoBehaviour {
 		}
 	}
 
-	public StatData GetStatList(){
-		if (statData == null) {
-			LoadStatData ();
+	MetaData _metaData;
+	public MetaData metaData{
+		get{
+			if (_metaData == null) {
+				LoadMetaData ();
+			}
+			return _metaData;
 		}
-		return statData;
 	}
 
-	public void LoadStatData(){
-		TextAsset statJson = Resources.Load ("MetaData/Stat") as TextAsset;
+	public void LoadMetaData(){
+		TextAsset statJson = Resources.Load ("MetaData/Meta") as TextAsset;
 		Debug.Log (statJson.text);
-		statData = JsonUtility.FromJson<StatData> (statJson.text);
+		_metaData = JsonUtility.FromJson<MetaData> (statJson.text);
 
-		foreach (Stat stat in statData.StatList) {
-			Debug.Log (stat.Name);
+		foreach (ShopItem shopItem in metaData.ShopItemList) {
+			Debug.Log (shopItem.Name);
 		}
 
 	}

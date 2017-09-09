@@ -10,11 +10,14 @@ public class TapItem : MonoBehaviour {
 
 		if (StatType == "CollectGold") {
 			GameController.Instance.UpgradeCollectGold ();
-		}else if (StatType == "StatDamage") {
+		} else if (StatType == "StatDamage") {
 			GameController.Instance.UpgradeDamage ();
-		}else if (StatType == "StatHealth") {
+		} else if (StatType == "StatHealth") {
 			GameController.Instance.UpgradeHealth ();
+		} else if (StatType == "RewardedVideo10000") {
+			GameController.Instance.RewardedVideo10000 ();
 		}
+	
 
 	}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Advertisements;
 
 public class GameController : MonoBehaviour {
 
@@ -11,8 +12,15 @@ public class GameController : MonoBehaviour {
 	public GameObject EffectSpark;
 	public AudioClip SFXClick;
 	public Transform Tap1Content;
+	public Transform Tap4Content;
 
 	public static GameController Instance;
+
+	#if UNITY_IOS
+	private string gameId = "1537701";
+	#elif UNITY_ANDROID
+	private string gameId = "1537702";
+	#endif
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +28,10 @@ public class GameController : MonoBehaviour {
 		TextGold.text = DataController.Instance.gameData.Gold.ToString();
 		StartCoroutine (StartCollectGold ());
 		InitTap ();
+
+		if (Advertisement.isSupported) {
+			Advertisement.Initialize (gameId);
+		}
 	}
 
 	IEnumerator StartCollectGold() {
@@ -63,7 +75,7 @@ public class GameController : MonoBehaviour {
 
 		Stat stat = null;
 
-		List<Stat> statList = DataController.Instance.GetStatList ().StatList;
+		List<Stat> statList = DataController.Instance.metaData.StatList;
 
 		foreach (Stat s in statList) {
 			if (s.Type == "CollectGold") {
@@ -100,7 +112,7 @@ public class GameController : MonoBehaviour {
 
 		Stat stat = null;
 
-		List<Stat> statList = DataController.Instance.GetStatList ().StatList;
+		List<Stat> statList = DataController.Instance.metaData.StatList;
 
 		foreach (Stat s in statList) {
 			if (s.Type == "StatDamage") {
@@ -124,7 +136,7 @@ public class GameController : MonoBehaviour {
 
 		DataController.Instance.gameData.DamageLevel += 1;
 		DataController.Instance.gameData.Damage =
-			DataController.Instance.gameData.DamageLevel * stat.UpgradeAmount;
+		DataController.Instance.gameData.DamageLevel * stat.UpgradeAmount;
 		DataController.Instance.gameData.Gold -= cost;
 
 		RefreshTap ();
@@ -137,7 +149,7 @@ public class GameController : MonoBehaviour {
 
 		Stat stat = null;
 
-		List<Stat> statList = DataController.Instance.GetStatList ().StatList;
+		List<Stat> statList = DataController.Instance.metaData.StatList;
 
 		foreach (Stat s in statList) {
 			if (s.Type == "StatHealth") {
@@ -168,13 +180,19 @@ public class GameController : MonoBehaviour {
 
 	}
 
+	public void RewardedVideo10000(){
+
+		ShowRewardedVideo ();
+
+	}
+
 	public void InitTap(){
 
-		StatData statData = DataController.Instance.GetStatList ();
+		MetaData metaData = DataController.Instance.metaData;
 
 		int i = 0;
 
-		foreach (Stat stat in statData.StatList) {
+		foreach (Stat stat in metaData.StatList) {
 
 			GameObject item = Resources.Load ("Prefabs/Item") as GameObject;
 
@@ -188,6 +206,29 @@ public class GameController : MonoBehaviour {
 			obj.name = stat.Type;
 
 			obj.GetComponent<TapItem> ().StatType = stat.Type;
+
+			i++;
+
+
+		}
+
+		i = 0;
+		foreach (ShopItem shopItem in metaData.ShopItemList) {
+
+			GameObject item = Resources.Load ("Prefabs/Item") as GameObject;
+
+			GameObject obj = Instantiate (item, Tap4Content);
+
+			RectTransform rt = obj.GetComponent<RectTransform> ();
+			rt.anchoredPosition = new Vector2 (0f, -80f + ( i * -160f));
+
+			//obj.GetComponent<RectTransform> ().rect = rect;
+
+			obj.name = shopItem.Type;
+
+			obj.GetComponent<TapItem> ().StatType = shopItem.Type;
+
+			Debug.Log (shopItem.Type);
 
 			i++;
 
@@ -208,7 +249,7 @@ public class GameController : MonoBehaviour {
 
 			Stat stat = null;
 
-			List<Stat> statList = DataController.Instance.GetStatList ().StatList;
+			List<Stat> statList = DataController.Instance.metaData.StatList;
 
 			foreach (Stat s in statList) {
 				if (s.Type == obj.name) {
@@ -262,7 +303,64 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
+		TapItem[] items4 = Tap4Content.GetComponentsInChildren<TapItem> ();
 
+		foreach (TapItem item in items4) {
+
+			GameObject obj = item.gameObject;
+
+			ShopItem shopItem = null;
+
+			List<ShopItem> shopItemList = DataController.Instance.metaData.ShopItemList;
+
+			foreach (ShopItem s in shopItemList) {
+				if (s.Type == obj.name) {
+					shopItem = s;
+				}
+			}
+
+			if (shopItem == null) {
+				continue;
+			}
+
+			Text[] texts = obj.GetComponentsInChildren<Text> ();
+
+			foreach (Text text in texts) {
+				if (text.tag == "Description") {
+
+					String upgradeText = String.Format("{0}", 
+						shopItem.Name
+					);
+					text.text = upgradeText;
+				}
+
+			}
+		}
+
+
+	}
+
+	void ShowRewardedVideo ()
+	{
+		var options = new ShowOptions();
+		options.resultCallback = HandleShowResult;
+
+		Advertisement.Show("rewardedVideo", options);
+	}
+
+	void HandleShowResult (ShowResult result)
+	{
+		if(result == ShowResult.Finished) {
+			Debug.Log("Video completed - Offer a reward to the player");
+			DataController.Instance.gameData.Gold += 10000;
+			DataController.Instance.SaveGameData ();
+
+		}else if(result == ShowResult.Skipped) {
+			Debug.LogWarning("Video was skipped - Do NOT reward the player");
+
+		}else if(result == ShowResult.Failed) {
+			Debug.LogError("Video failed to show");
+		}
 	}
 
 }
