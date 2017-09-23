@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "84881932448",
+    "firebase_url": "https://dva-clicker.firebaseio.com",
+    "project_id": "dva-clicker",
+    "storage_bucket": "dva-clicker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84881932448:android:f2fb791b2cd97d43",
+        "android_client_info": {
+          "package_name": "com.chris.dva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84881932448-o2tb28htlftcgdu0uue3rb9bu1nqh7df.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYoRURntm87spH8NDTgPGbUcXCcHeyN3w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

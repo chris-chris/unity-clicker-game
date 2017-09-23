@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.Advertisements;
+using UnityEngine.Purchasing;
 
 public class GameController : MonoBehaviour {
 
@@ -32,6 +33,16 @@ public class GameController : MonoBehaviour {
 		if (Advertisement.isSupported) {
 			Advertisement.Initialize (gameId);
 		}
+
+		Firebase.Analytics.FirebaseAnalytics.LogEvent(
+			Firebase.Analytics.FirebaseAnalytics.EventSelectContent,
+			new Firebase.Analytics.Parameter[] {
+				new Firebase.Analytics.Parameter(
+					Firebase.Analytics.FirebaseAnalytics.ParameterItemName, "name"),
+				new Firebase.Analytics.Parameter(
+					Firebase.Analytics.FirebaseAnalytics.UserPropertySignUpMethod, "Google"),
+			}
+		);
 	}
 
 	IEnumerator StartCollectGold() {
@@ -360,6 +371,14 @@ public class GameController : MonoBehaviour {
 
 		}else if(result == ShowResult.Failed) {
 			Debug.LogError("Video failed to show");
+		}
+	}
+
+	public void PurchaseComplete(Product p)
+	{
+		Debug.Log (p.metadata.localizedTitle + " purchase success!");
+		if (p.definition.id == "gold100000") {
+			DataController.Instance.gameData.Gold += 100000;
 		}
 	}
 

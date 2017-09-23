@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="firebase_database_url" translatable="false">https://dva-clicker.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">84881932448</string>
+  <string name="google_storage_bucket" translatable="false">dva-clicker.appspot.com</string>
+  <string name="project_id" translatable="false">dva-clicker</string>
+  <string name="google_api_key" translatable="false">AIzaSyDYoRURntm87spH8NDTgPGbUcXCcHeyN3w</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDYoRURntm87spH8NDTgPGbUcXCcHeyN3w</string>
+  <string name="google_app_id" translatable="false">1:84881932448:android:f2fb791b2cd97d43</string>
+  <string name="default_web_client_id" translatable="false">84881932448-o2tb28htlftcgdu0uue3rb9bu1nqh7df.apps.googleusercontent.com</string>
+</resources>
