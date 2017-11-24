@@ -1,20 +1,4 @@
-Assets/Editor Default Resources/Firebase/fb_analytics.png
-Assets/Editor Default Resources/Firebase/fb_analytics_dark.png
-Assets/Editor Default Resources/Firebase/fb_auth.png
-Assets/Editor Default Resources/Firebase/fb_auth_dark.png
-Assets/Editor Default Resources/Firebase/fb_cloud_messaging.png
-Assets/Editor Default Resources/Firebase/fb_cloud_messaging_dark.png
-Assets/Editor Default Resources/Firebase/fb_config.png
-Assets/Editor Default Resources/Firebase/fb_config_dark.png
-Assets/Editor Default Resources/Firebase/fb_database.png
-Assets/Editor Default Resources/Firebase/fb_database_dark.png
-Assets/Editor Default Resources/Firebase/fb_dynamic_links.png
-Assets/Editor Default Resources/Firebase/fb_dynamic_links_dark.png
-Assets/Editor Default Resources/Firebase/fb_invites.png
-Assets/Editor Default Resources/Firebase/fb_invites_dark.png
-Assets/Editor Default Resources/Firebase/fb_storage.png
 Assets/Editor Default Resources/Firebase/fb_storage_dark.png
-Assets/Editor Default Resources/Firebase/firebase_lockup.png
 Assets/Editor Default Resources/Firebase/firebase_lockup_dark.png
 Assets/Firebase/Editor/AppDeps.cs
 Assets/Firebase/Editor/Firebase.Editor.dll

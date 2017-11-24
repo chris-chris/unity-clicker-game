@@ -1,13 +1,20 @@
 #if UNITY_PURCHASING
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Purchasing;
 using System.IO;
 using System.Collections.Generic;
 
-namespace UnityEngine.Purchasing
+namespace UnityEditor.Purchasing
 {
 	public static class IAPButtonMenu
 	{
+        [MenuItem("GameObject/Unity IAP/IAP Button", false, 10)]
+        public static void GameObjectCreateUnityIAPButton()
+        {
+            CreateUnityIAPButton();
+        }
+
 		[MenuItem ("Window/Unity IAP/Create IAP Button", false, 5)]
 		public static void CreateUnityIAPButton()
 		{
@@ -31,10 +38,35 @@ namespace UnityEngine.Purchasing
 		}
 	}
 
+    public static class IAPListenerMenu
+    {
+        [MenuItem("GameObject/Unity IAP/IAP Listener", false, 10)]
+        public static void GameObjectCreateUnityIAPListener()
+        {
+            CreateUnityIAPListener();
+        }
+
+        [MenuItem ("Window/Unity IAP/Create IAP Listener", false, 6)]
+        public static void CreateUnityIAPListener()
+        {
+            // Create empty GameObject
+            EditorApplication.ExecuteMenuItem("GameObject/Create Empty");
+
+            // Get GameObject
+            GameObject gO = Selection.activeGameObject;
+
+            // Add IAP Listener component to GameObject
+            if (gO) {
+                gO.AddComponent<IAPListener>();
+                gO.name = "IAP Listener";
+            }
+        }
+    }
+
 
 	[CustomEditor(typeof(IAPButton))]
 	[CanEditMultipleObjects]
-	public class IAPButtonEditor : Editor 
+	public class IAPButtonEditor : Editor
 	{
 		private static readonly string[] excludedFields = new string[] { "m_Script" };
 		private static readonly string[] restoreButtonExcludedFields = new string[] { "m_Script", "consumePurchase", "onPurchaseComplete", "onPurchaseFailed", "titleText", "descriptionText", "priceText" };
@@ -77,7 +109,7 @@ namespace UnityEngine.Purchasing
 					ProductCatalogEditor.ShowWindow();
 				}
 			}
-			
+
 			DrawPropertiesExcluding(serializedObject, button.buttonType == IAPButton.ButtonType.Restore ? restoreButtonExcludedFields : excludedFields);
 
 			serializedObject.ApplyModifiedProperties();

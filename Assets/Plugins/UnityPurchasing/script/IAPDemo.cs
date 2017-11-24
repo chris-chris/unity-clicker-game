@@ -188,38 +188,6 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         }
         #endif
 
-        // Verify remotely
-        // If this game has a Game Server and is capable of Server-to-Server communication, consider
-        // server-based verification, instead of client-based verification, to avoid "man in the middle"
-        // security attacks.
-        bool needRemoteValidation = m_IsCloudMoolahStoreSelected;
-
-        if (needRemoteValidation)
-        {
-            // CloudMoolah purchase completion / finishing currently requires using the API
-            // extension IMoolahExtension.RequestPayout to finish a transaction.
-            if (m_IsCloudMoolahStoreSelected)
-            {
-                // Finish transaction with CloudMoolah server
-                m_MoolahExtensions.RequestPayOut(e.purchasedProduct.transactionID,
-                    (string transactionID, RequestPayOutState state, string message) => {
-                        if (state == RequestPayOutState.RequestPayOutSucceed) {
-                            // Finally, finish transaction with Unity IAP's local
-                            // transaction log, recording the transaction id there
-                            m_Controller.ConfirmPendingPurchase(e.purchasedProduct);
-
-                            // Unlock content here from purchases when using CloudMoolah.
-                        } else {
-                            Debug.Log("RequestPayOut: failed. transactionID: " + transactionID +
-                                ", state: " + state + ", message: " + message);
-                            // Finishing failed. Retry later.
-                        }
-                });
-            }
-
-            return PurchaseProcessingResult.Pending;
-        }
-
         // Unlock content from purchases here.
 #if USE_PAYOUTS
         if (e.purchasedProduct.definition.payouts != null) {
@@ -285,19 +253,27 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                     purchaseInfo.productCode, purchaseInfo.gameOrderId, purchaseInfo.orderQueryToken);
             }
 
+            // Determine if the user already owns this item and that it can be added to
+            // their inventory, if not already present.
+#if UNITY_5_6_OR_NEWER 
+            if (r == PurchaseFailureReason.DuplicateTransaction) 
+            {
+                // Unlock `item` in inventory if not already present.
+                Debug.Log("Duplicate transaction detected, unlock this item");
+            }
+#else // Building using Unity strictly less than 5.6; e.g 5.3-5.5.
+            // In Unity 5.3 the enum PurchaseFailureReason.DuplicateTransaction 
+            // may not be available (is available in 5.6 ... specifically 
+            // 5.5.1p1+, 5.4.4p2+) and can be substituted with this call. 
             if (r == PurchaseFailureReason.Unknown)
             {
-                // In Unity 5.3 the enum PurchaseFailureReason.DuplicateTransaction is
-                // not available (is available in 5.4+) and can be substituted with
-                // this call. Use this in OnPurchaseFailed for Unknown to determine
-                // if the user already owns this item and that it can be added to
-                // their inventory, if not already present.
                 if (purchaseError != null && purchaseError.error != null && purchaseError.error.Equals("DuplicateTransaction"))
                 {
                     // Unlock `item` in inventory if not already present.
                     Debug.Log("Duplicate transaction detected, unlock this item");
                 }
             }
+#endif
         }
 
         m_PurchaseInProgress = false;
@@ -664,54 +640,9 @@ public class IAPDemo : MonoBehaviour, IStoreListener
             });
         }
 
-        // CloudMoolah requires user registration and supports login to manage the user's
-        // digital wallet. The CM store also supports remote receipt validation.
-
-        // CloudMoolah user registration extension, to establish digital wallet
-        // This is a "fast" registration, requiring only a password. Users may provide
-        // more detail including an email address during the purchase flow, a "slow" registration, if desired.
-        if (GetRegisterButton() != null)
-        {
-            GetRegisterButton().onClick.AddListener (() => {
-                // Provide a unique password to establish the user's account.
-                // Typically, connected games (with backend game servers), may already
-                // have available a user-token, which could be supplied here.
-                m_MoolahExtensions.FastRegister("CMPassword",
-                    (string cmUserName) =>
-                    {
-                        Debug.Log ("RegisterSucceeded: cmUserName = " + cmUserName);
-                        m_CloudMoolahUserName = cmUserName;
-                    },
-                    (FastRegisterError error, string errorMessage) =>
-                    {
-                        Debug.Log ("RegisterFailed: error = " + error.ToString() + ", errorMessage = " + errorMessage);
-                    });
-            });
-        }
-
-        // CloudMoolah user login extension, to access existing digital wallet
         if (GetLoginButton() != null)
         {
-            if (m_IsCloudMoolahStoreSelected)
-            {
-                GetLoginButton().onClick.AddListener(() => {
-                    m_MoolahExtensions.Login(m_CloudMoolahUserName, "CMPassword",
-                        (LoginResultState state, string errorMsg) =>
-                        {
-                            if (state == LoginResultState.LoginSucceed)
-                            {
-                                m_IsLoggedIn = true;
-                            }
-                            else
-                            {
-                                m_IsLoggedIn = false;
-                            }
-                            Debug.Log("LoginResult: state: " + state.ToString() + " errorMsg: " + errorMsg);
-                        }
-                    );
-                });
-            }
-            else if (m_IsUnityChannelSelected)
+            if (m_IsUnityChannelSelected)
             {
                 GetLoginButton().onClick.AddListener(() =>
                 {
@@ -732,26 +663,10 @@ public class IAPDemo : MonoBehaviour, IStoreListener
             }
         }
 
-        // CloudMoolah remote purchase receipt validation, to determine if the purchase is fraudulent
-        // NOTE: Remote validation only available for CloudMoolah currently. For local validation,
-        // see ProcessPurchase.
+        // For local validation, see ProcessPurchase.
         if (GetValidateButton() != null)
         {
-            if (m_IsCloudMoolahStoreSelected)
-            {
-                GetValidateButton()
-                    .onClick.AddListener(() =>
-                    {
-                        // Remotely validate the last transaction and receipt.
-                        m_MoolahExtensions.ValidateReceipt(m_LastTransationID, m_LastReceipt,
-                            (string transactionID, ValidateReceiptState state, string message) =>
-                            {
-                                Debug.Log("ValidtateReceipt transactionID:" + transactionID
-                                          + ", state:" + state.ToString() + ", message:" + message);
-                            });
-                    });
-            }
-            else if (m_IsUnityChannelSelected)
+            if (m_IsUnityChannelSelected)
             {
                 GetValidateButton()
                     .onClick.AddListener(() =>
@@ -835,17 +750,18 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
     private bool NeedRegisterButton()
     {
-        return m_IsCloudMoolahStoreSelected;
+        // Deprecated
+        return false;
     }
 
     private bool NeedLoginButton()
     {
-        return m_IsCloudMoolahStoreSelected || m_IsUnityChannelSelected;
+        return m_IsUnityChannelSelected;
     }
 
     private bool NeedValidateButton()
     {
-        return m_IsCloudMoolahStoreSelected || m_IsUnityChannelSelected;
+        return m_IsUnityChannelSelected;
     }
 
     private Text GetText(bool right)
