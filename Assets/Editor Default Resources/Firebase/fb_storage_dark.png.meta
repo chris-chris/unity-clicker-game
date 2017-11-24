@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 2955864b938094f579ea9902b65ac10c
+labels:
+- gvh
 timeCreated: 1481243898
 licenseType: Pro
 TextureImporter:

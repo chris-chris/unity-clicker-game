@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.Advertisements;
-using UnityEngine.Purchasing;
 
 public class GameController : MonoBehaviour {
 
@@ -17,11 +16,11 @@ public class GameController : MonoBehaviour {
 
 	public static GameController Instance;
 
-	#if UNITY_IOS
+#if UNITY_IOS
 	private string gameId = "1537701";
-	#elif UNITY_ANDROID
+#elif UNITY_ANDROID
 	private string gameId = "1537702";
-	#endif
+#endif
 
 	// Use this for initialization
 	void Start () {
@@ -374,12 +373,12 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public void PurchaseComplete(Product p)
-	{
-		Debug.Log (p.metadata.localizedTitle + " purchase success!");
-		if (p.definition.id == "gold100000") {
-			DataController.Instance.gameData.Gold += 100000;
-		}
-	}
+	// public void PurchaseComplete(Product p)
+	// {
+	// 	Debug.Log (p.metadata.localizedTitle + " purchase success!");
+	// 	if (p.definition.id == "gold100000") {
+	// 		DataController.Instance.gameData.Gold += 100000;
+	// 	}
+	// }
 
 }
