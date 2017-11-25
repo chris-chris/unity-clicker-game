@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.Advertisements;
+//using UnityEngine.Advertisements;
 
 public class GameController : MonoBehaviour {
 
@@ -29,19 +29,19 @@ public class GameController : MonoBehaviour {
 		StartCoroutine (StartCollectGold ());
 		InitTap ();
 
-		if (Advertisement.isSupported) {
-			Advertisement.Initialize (gameId);
-		}
-
-		Firebase.Analytics.FirebaseAnalytics.LogEvent(
-			Firebase.Analytics.FirebaseAnalytics.EventSelectContent,
-			new Firebase.Analytics.Parameter[] {
-				new Firebase.Analytics.Parameter(
-					Firebase.Analytics.FirebaseAnalytics.ParameterItemName, "name"),
-				new Firebase.Analytics.Parameter(
-					Firebase.Analytics.FirebaseAnalytics.UserPropertySignUpMethod, "Google"),
-			}
-		);
+//		if (Advertisement.isSupported) {
+//			Advertisement.Initialize (gameId);
+//		}
+//
+//		Firebase.Analytics.FirebaseAnalytics.LogEvent(
+//			Firebase.Analytics.FirebaseAnalytics.EventSelectContent,
+//			new Firebase.Analytics.Parameter[] {
+//				new Firebase.Analytics.Parameter(
+//					Firebase.Analytics.FirebaseAnalytics.ParameterItemName, "name"),
+//				new Firebase.Analytics.Parameter(
+//					Firebase.Analytics.FirebaseAnalytics.UserPropertySignUpMethod, "Google"),
+//			}
+//		);
 	}
 
 	IEnumerator StartCollectGold() {
@@ -192,7 +192,7 @@ public class GameController : MonoBehaviour {
 
 	public void RewardedVideo10000(){
 
-		ShowRewardedVideo ();
+		// ShowRewardedVideo ();
 
 	}
 
@@ -349,30 +349,30 @@ public class GameController : MonoBehaviour {
 
 
 	}
-
-	void ShowRewardedVideo ()
-	{
-		var options = new ShowOptions();
-		options.resultCallback = HandleShowResult;
-
-		Advertisement.Show("rewardedVideo", options);
-	}
-
-	void HandleShowResult (ShowResult result)
-	{
-		if(result == ShowResult.Finished) {
-			Debug.Log("Video completed - Offer a reward to the player");
-			DataController.Instance.gameData.Gold += 10000;
-			DataController.Instance.SaveGameData ();
-
-		}else if(result == ShowResult.Skipped) {
-			Debug.LogWarning("Video was skipped - Do NOT reward the player");
-
-		}else if(result == ShowResult.Failed) {
-			Debug.LogError("Video failed to show");
-		}
-	}
-
+//
+//	void ShowRewardedVideo ()
+//	{
+//		var options = new ShowOptions();
+//		options.resultCallback = HandleShowResult;
+//
+//		Advertisement.Show("rewardedVideo", options);
+//	}
+//
+//	void HandleShowResult (ShowResult result)
+//	{
+//		if(result == ShowResult.Finished) {
+//			Debug.Log("Video completed - Offer a reward to the player");
+//			DataController.Instance.gameData.Gold += 10000;
+//			DataController.Instance.SaveGameData ();
+//
+//		}else if(result == ShowResult.Skipped) {
+//			Debug.LogWarning("Video was skipped - Do NOT reward the player");
+//
+//		}else if(result == ShowResult.Failed) {
+//			Debug.LogError("Video failed to show");
+//		}
+//	}
+//
 	// public void PurchaseComplete(Product p)
 	// {
 	// 	Debug.Log (p.metadata.localizedTitle + " purchase success!");
