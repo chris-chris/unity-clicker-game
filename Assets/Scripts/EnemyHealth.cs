@@ -20,6 +20,7 @@ public class EnemyHealth : MonoBehaviour {
 
 	public void OnDie() {
 		NotificationCenter.Instance.Delete ("PlayerAttack", this.OnDamage);
+		NotificationCenter.Instance.Notify ("MonsterDie");
 		Destroy (gameObject);
 	}
 }

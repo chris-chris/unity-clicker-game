@@ -80,7 +80,7 @@ public class DataController : MonoBehaviour {
 			_gameData.GoldPerSec = 1;
 			_gameData.Gold = 0;
 			_gameData.Health = 100;
-			_gameData.Damage = 20;
+			_gameData.Damage = 1;
 			_gameData.Level = 1;
 			_gameData.Exp = 0;
 
