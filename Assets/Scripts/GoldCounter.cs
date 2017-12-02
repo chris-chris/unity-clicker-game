@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class GoldCounter : MonoBehaviour {
 
-	public int Gold = 0;
 	public Text TextGold;
 
 	// Use this for initialization
 	void Start () {
+
+		TextGold.text = DataController.Instance.gameData.Gold.ToString ();
 		StartCoroutine (StartGoldCount ());
 	}
 	
@@ -21,8 +22,10 @@ public class GoldCounter : MonoBehaviour {
 	IEnumerator StartGoldCount(){
 		while (true) {
 			yield return new WaitForSecondsRealtime (1f);
-			Gold++;
-			TextGold.text = Gold.ToString ();
+			DataController.Instance.gameData.Gold += DataController.Instance.gameData.GoldPerSec;
+			TextGold.text = DataController.Instance.gameData.Gold.ToString ();
+
+			DataController.Instance.SaveGameData ();
 		}
 	}
 }

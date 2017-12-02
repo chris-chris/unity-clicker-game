@@ -66,7 +66,7 @@ public class DataController : MonoBehaviour {
 	public void LoadGameData()
 	{
 		string filePath = Application.persistentDataPath + gameDataProjectFilePath;
-
+		Debug.Log (filePath);
 		if (File.Exists (filePath)) {
 			Debug.Log ("loaded!");
 			string dataAsJson = File.ReadAllText (filePath);
