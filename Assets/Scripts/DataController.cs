@@ -51,13 +51,25 @@ public class DataController : MonoBehaviour {
 		}
 	}
 
+	Dictionary<int, Quest> _questDic;
+	public Dictionary<int, Quest> QuestDic{
+		get{
+			if (_questDic == null) {
+				LoadMetaData ();
+			}
+			return _questDic;
+		}
+	}
+
 	public void LoadMetaData(){
 		TextAsset statJson = Resources.Load ("MetaData/Meta") as TextAsset;
 		Debug.Log (statJson.text);
 		_metaData = JsonUtility.FromJson<MetaData> (statJson.text);
 
-		foreach (ShopItem shopItem in metaData.ShopItemList) {
-			Debug.Log (shopItem.Name);
+		_questDic = new Dictionary<int, Quest> ();
+		foreach (Quest quest in metaData.QuestList) {
+			Debug.Log (quest.QuestType);
+			_questDic.Add (quest.QuestID, quest);
 		}
 
 	}
@@ -83,6 +95,7 @@ public class DataController : MonoBehaviour {
 			_gameData.Damage = 1;
 			_gameData.Level = 1;
 			_gameData.Exp = 0;
+			_gameData.OrcKillCount = 0;
 
 		}
 	}

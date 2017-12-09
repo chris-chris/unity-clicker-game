@@ -1,0 +1,24 @@
+{
+	"QuestList":[
+		{
+			"QuestID":1,
+			"QuestType":"MonsterKill",
+			"TargetName":"Orc",
+			"GoalPerLevel":10,
+			"RewardType":"Gold",
+			"RewardAmountPerLevel":1000,
+			"QuestName":"오크 {0}마리 처치",
+			"ButtonName":"{0}G"
+		},
+		{
+			"QuestID":2,
+			"QuestType":"Resource",
+			"TargetName":"Gold",
+			"GoalPerLevel":100000,
+			"RewardType":"Gold",
+			"RewardAmountPerLevel":1000,
+			"QuestName":"{0} 골드 획득",
+			"ButtonName":"{0}G"
+		}
+	]
+}

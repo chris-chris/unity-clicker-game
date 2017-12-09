@@ -27,4 +27,8 @@ public class GameData {
 
 	public int Exp;
 
+	public int OrcKillCount;
+
+	public List<QuestInstance> QuestList;
+
 }

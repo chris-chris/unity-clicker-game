@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Small particle pack\TimedObjectDestructor.js" />
      <None Include="Assets\Pixel Hero Vol. 1 (Ver. 4)\Read Me.txt" />
+     <None Include="Assets\Resources\MetaData\Meta.txt" />
      <None Include="Assets\Plugins\UnityPurchasing\script\link.xml" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour {
 
+	public string MonsterName;
 	public int Health = 100;
 
 	// Use this for initialization
@@ -21,6 +22,12 @@ public class EnemyHealth : MonoBehaviour {
 	public void OnDie() {
 		NotificationCenter.Instance.Delete ("PlayerAttack", this.OnDamage);
 		NotificationCenter.Instance.Notify ("MonsterDie");
+
+		if ("Orc".Equals (MonsterName)) {
+			DataController.Instance.gameData.OrcKillCount++;
+			NotificationCenter.Instance.Notify ("OrcKill");
+		}
+
 		Destroy (gameObject);
 	}
 }
