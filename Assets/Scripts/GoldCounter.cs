@@ -13,7 +13,14 @@ public class GoldCounter : MonoBehaviour {
 
 		TextGold.text = DataController.Instance.gameData.Gold.ToString ();
 		StartCoroutine (StartGoldCount ());
+
+		NotificationCenter.Instance.Add ("GoldUpdate", this.UpdateGoldText);
 	}
+
+	public void UpdateGoldText(){
+		TextGold.text = DataController.Instance.gameData.Gold.ToString ();
+	}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -46,4 +53,5 @@ public class GoldCounter : MonoBehaviour {
 			DataController.Instance.SaveGameData ();
 		}
 	}
+
 }
