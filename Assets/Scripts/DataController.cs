@@ -102,11 +102,18 @@ public class DataController : MonoBehaviour {
 
 	public void SaveGameData()
 	{
-
+		gameData.Point = gameData.Gold;
 		string dataAsJson = JsonUtility.ToJson (gameData);
 
 		string filePath = Application.persistentDataPath + gameDataProjectFilePath;
 		File.WriteAllText (filePath, dataAsJson);
+
+		string url = "http://unity.chris-chris.ai/User/Update";
+
+		Debug.Log (dataAsJson);
+		HTTPClient.Instance.POST (url, dataAsJson, delegate(WWW www) {
+			Debug.Log(www.text);
+		});
 
 	}
 

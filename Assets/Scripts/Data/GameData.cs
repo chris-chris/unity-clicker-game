@@ -5,13 +5,17 @@ using System;
 [Serializable]
 public class GameData {
 
+	public long UserID;
+	public string AccessToken;
+
 	public string FacebookID;
 	public string FacebookName;
 	public string FacebookPhotoURL;
 
 	public List<FacebookUser> FacebookFriends;
 
-	public int Gold;
+	public long Point;
+	public long Gold;
 
 	public int GoldPerSec;
 

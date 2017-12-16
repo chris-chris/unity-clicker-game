@@ -68,8 +68,22 @@ public class LoginController : MonoBehaviour {
 			DataController.Instance.gameData.FacebookFriends = fbResult.data;
 			DataController.Instance.SaveGameData();
 
-			SceneManager.LoadScene ("Game");
+			GameServerLogin();
 
+		});
+	}
+
+	public void GameServerLogin()
+	{
+		string url = "http://unity.chris-chris.ai/Login/Facebook";
+		string body = JsonUtility.ToJson (DataController.Instance.gameData);
+		Debug.Log (body);
+		HTTPClient.Instance.POST (url, body, delegate(WWW www) {
+			ServerLoginResult serverResult = JsonUtility.FromJson<ServerLoginResult>(www.text);
+			DataController.Instance.gameData.UserID = serverResult.Data.UserID;
+			DataController.Instance.gameData.AccessToken = serverResult.Data.AccessToken;
+			DataController.Instance.gameData.Gold = serverResult.Data.Point;
+			SceneManager.LoadScene ("Game");
 		});
 	}
 
