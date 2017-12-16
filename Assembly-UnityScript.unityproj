@@ -47,12 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Small particle pack\TimedObjectDestructor.js" />
+     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Pixel Hero Vol. 1 (Ver. 4)\Read Me.txt" />
      <None Include="Assets\Resources\MetaData\Meta.txt" />
      <None Include="Assets\Plugins\UnityPurchasing\script\link.xml" />
- <Reference Include="Facebook.Unity.Settings">
- <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
- </Reference>
+     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver.txt" />
+     <None Include="Assets\FacebookSDK\link.xml" />
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
@@ -109,6 +109,18 @@
  </Reference>
  <Reference Include="UnityStore">
  <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityChannel/UnityStore.dll</HintPath>
+ </Reference>
+ <Reference Include="Facebook.Unity">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/FacebookSDK/Plugins/Facebook.Unity.dll</HintPath>
+ </Reference>
+ <Reference Include="Facebook.Unity.Settings">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/FacebookSDK/Plugins/Settings/Facebook.Unity.Settings.dll</HintPath>
+ </Reference>
+ <Reference Include="Facebook.Unity.Gameroom">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/FacebookSDK/Plugins/Gameroom/Facebook.Unity.Gameroom.dll</HintPath>
+ </Reference>
+ <Reference Include="FacebookNamedPipeClient">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/FacebookSDK/Plugins/Gameroom/FacebookNamedPipeClient.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
