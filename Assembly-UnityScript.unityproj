@@ -80,26 +80,23 @@
  <Reference Include="UnityEngine.VR">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
- <Reference Include="ChannelPurchase">
- <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityChannel/ChannelPurchase.dll</HintPath>
- </Reference>
- <Reference Include="UnityStore">
- <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityChannel/UnityStore.dll</HintPath>
- </Reference>
- <Reference Include="FacebookStore">
- <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Facebook/FacebookStore.dll</HintPath>
- </Reference>
- <Reference Include="Security">
- <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Security/live/Security.dll</HintPath>
+ <Reference Include="Editor">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Editor.dll</HintPath>
  </Reference>
  <Reference Include="Purchasing.Common">
  <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Purchasing.Common.dll</HintPath>
  </Reference>
+ <Reference Include="Stores">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Stores.dll</HintPath>
+ </Reference>
  <Reference Include="Apple">
  <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Apple/Apple.dll</HintPath>
  </Reference>
- <Reference Include="Stores">
- <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Stores.dll</HintPath>
+ <Reference Include="Security">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Security/live/Security.dll</HintPath>
+ </Reference>
+ <Reference Include="FacebookStore">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Facebook/FacebookStore.dll</HintPath>
  </Reference>
  <Reference Include="Tizen">
  <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Tizen/Tizen.dll</HintPath>
@@ -107,8 +104,11 @@
  <Reference Include="winrt">
  <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
  </Reference>
- <Reference Include="Editor">
- <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityPurchasing/Bin/Editor.dll</HintPath>
+ <Reference Include="ChannelPurchase">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityChannel/ChannelPurchase.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityStore">
+ <HintPath>/Users/kakao/Documents/Unity/unity-clicker-game/Assets/Plugins/UnityChannel/UnityStore.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

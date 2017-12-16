@@ -31,6 +31,7 @@ public class TapController : MonoBehaviour {
 				Tap3.SetActive (false);
 				Tap4.SetActive (false);
 				currentTapNumber = tapNumber;
+				AudioManager.Instance.PlayBGM ("01");
 			}
 
 		}else if (tapNumber == 2) {
@@ -44,6 +45,7 @@ public class TapController : MonoBehaviour {
 				Tap3.SetActive (false);
 				Tap4.SetActive (false);
 				currentTapNumber = tapNumber;
+				AudioManager.Instance.PlayBGM ("02");
 			}
 
 		}else if (tapNumber == 3) {
@@ -57,6 +59,7 @@ public class TapController : MonoBehaviour {
 				Tap3.SetActive (true);
 				Tap4.SetActive (false);
 				currentTapNumber = tapNumber;
+				AudioManager.Instance.PlayBGM ("03");
 			}
 
 		}else if (tapNumber == 4) {
@@ -70,6 +73,7 @@ public class TapController : MonoBehaviour {
 				Tap3.SetActive (false);
 				Tap4.SetActive (true);
 				currentTapNumber = tapNumber;
+				AudioManager.Instance.PlayBGM ("04");
 			}
 
 		}

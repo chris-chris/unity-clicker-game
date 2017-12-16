@@ -6,11 +6,19 @@ public class KillStar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Destroy (gameObject, 0.7f);
+		// Destroy (gameObject, 0.7f);
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void OnEnable() {
+
+		StartCoroutine (StartReturnObject ());
+
 	}
+
+	IEnumerator StartReturnObject(){
+		yield return new WaitForSecondsRealtime (0.7f);
+		ClickEffectPool.Instance.ReleaseObject (gameObject);
+	}
+
 }

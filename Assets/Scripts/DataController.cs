@@ -110,6 +110,12 @@ public class DataController : MonoBehaviour {
 
 	}
 
+	public void ResetGameData()
+	{
+		string filePath = Application.persistentDataPath + gameDataProjectFilePath;
+		File.Delete (filePath);
+	}
+
 //	public void Start() {
 //		Firebase.Messaging.FirebaseMessaging.TokenReceived += OnTokenReceived;
 //		Firebase.Messaging.FirebaseMessaging.MessageReceived += OnMessageReceived;

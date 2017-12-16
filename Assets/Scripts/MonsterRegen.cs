@@ -22,8 +22,9 @@ public class MonsterRegen : MonoBehaviour {
 
 	public IEnumerator StartMonsterRegen(){
 		yield return new WaitForSecondsRealtime (3f);
-		GameObject orc = Resources.Load ("Prefabs/Orc") as GameObject;
-		GameObject orcInit = Instantiate (orc, Background);
-		orcInit.transform.localPosition = new Vector3 (2.76f, 1.36f, -1f);
+//		GameObject orc = Resources.Load ("Prefabs/Orc") as GameObject;
+//		GameObject orcInit = Instantiate (orc, Background);
+		MonsterPool.Instance.GetObject(new Vector3 (2.76f, 1.36f, 0f));
+		//orcInit.transform.localPosition = new Vector3 (2.76f, 1.36f, -1f);
 	}
 }

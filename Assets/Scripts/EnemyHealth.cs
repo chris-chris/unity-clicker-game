@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour {
 
 	public string MonsterName;
 	public int Health = 100;
+	public int MaxHealth = 100;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +14,7 @@ public class EnemyHealth : MonoBehaviour {
 	}
 
 	public void OnDamage() {
+		
 		Health = Health - DataController.Instance.gameData.Damage;
 		if (Health <= 0) {
 			OnDie ();
@@ -20,6 +22,9 @@ public class EnemyHealth : MonoBehaviour {
 	}
 
 	public void OnDie() {
+
+		AudioManager.Instance.PlaySFX ("Coin");
+
 		NotificationCenter.Instance.Delete ("PlayerAttack", this.OnDamage);
 		NotificationCenter.Instance.Notify ("MonsterDie");
 
@@ -28,6 +33,6 @@ public class EnemyHealth : MonoBehaviour {
 			NotificationCenter.Instance.Notify ("OrcKill");
 		}
 
-		Destroy (gameObject);
+		MonsterPool.Instance.ReleaseObject (gameObject);
 	}
 }

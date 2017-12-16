@@ -35,8 +35,12 @@ public class GoldCounter : MonoBehaviour {
 
 			if (Physics.Raycast (ray, out hit, 100f)) {
 
-				GameObject StarSFX = Resources.Load ("Prefabs/Stars") as GameObject;
-				Instantiate (StarSFX, hit.point, new Quaternion());
+//				GameObject StarSFX = Resources.Load ("Prefabs/Stars") as GameObject;
+//				Instantiate (StarSFX, hit.point, new Quaternion());
+				GameObject StarSFX = ClickEffectPool.Instance.GetObject();
+				StarSFX.transform.position = hit.point;
+
+				AudioManager.Instance.PlaySFX ("Coin");
 
 			}
 
